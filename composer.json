@@ -1,0 +1,21 @@
+{
+  "name": "aledjones/db-rest-php",
+  "description": "Library for working with db-rest in PHP",
+  "keywords": [
+    "db",
+    "hafas",
+    "deutsche bahn",
+    "transport",
+    "db-rest",
+    "db-hafas"
+  ],
+  "homepage": "https://github.com/aledjones/db-rest-php",
+  "require": {
+    "nategood/httpful": "0.2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "aledjones\\db_rest_php\\": "src/"
+    }
+  }
+}
