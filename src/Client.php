@@ -89,7 +89,7 @@ class Client
      * @throws \aledjones\db_rest_php\Exceptions\StationQueryEmptyException
      * @throws \Httpful\Exception\ConnectionErrorException
      */
-    public function GetStationByName($name)
+    public function GetStationDetailsByName($name)
     {
         $s = $this->base_url . 'stations?name=';
         if (!empty($name)) {

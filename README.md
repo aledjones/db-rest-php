@@ -42,7 +42,7 @@ return $client->GetStationDetailsById('8002549')->address->zipcode;
 // Returns "zipcode" attribute of the address object, an attribute of the StationDetails object
 // Output will be 20099
 
-return $client->GetStationByName("Kaiserslautern West");
+return $client->GetStationDetailsByName("Kaiserslautern West");
 // Returns StationDetails object
 // Same as GetStationDetailsById(), but input is the full name of the station as string.
 // This needs to be the exact name or otherwise the API will show a strange behavior (illegal json).

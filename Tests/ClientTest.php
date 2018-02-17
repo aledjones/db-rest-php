@@ -39,7 +39,7 @@ class ClientTest extends TestCase
     {
         $client = new db_rest_php\Client();
         try {
-            $result = $client->GetStationByName('Berlin Hbf');
+            $result = $client->GetStationDetailsByName('Berlin Hbf');
         } catch (Exception $e) {
             return $e->getMessage();
         }
