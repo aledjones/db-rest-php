@@ -16,63 +16,35 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace aledjones\db_rest_php;
+namespace aledjones\db_rest_php\DataTypes\availability;
 
-/**
- * Class Station
- * Provides a simple structure of the Friendly Public Transit Format in PHP
- * @package aledjones\db_rest_php
- */
-class Station
+
+class availability
 {
-    /**
-     * @var string
-     */
-    /**
-     * @var string
-     */
-    /**
-     * @var string
-     */
-    /**
-     * @var null|double
-     */
-    /**
-     * @var null|double
-     */
-    /**
-     * @var null|double
-     */
-    public
-        $type = "station",
-        $id,
-        $name,
-        $weight,
-        $relevance,
-        $score;
+    public $monday, $tuesday, $wednesday, $thursday, $friday, $saturday, $sunday, $holiday;
 
     /**
-     * Station constructor.
-     * @param $type
-     * @param $id
-     * @param $name
-     * @param null $weight
-     * @param null $relevance
-     * @param null $score
+     * availability constructor.
+     * @param $monday
+     * @param $tuesday
+     * @param $wednesday
+     * @param $thursday
+     * @param $friday
+     * @param $saturday
+     * @param $sunday
+     * @param $holiday
      */
-    function __construct($type,
-                         $id,
-                         $name,
-                         $weight = null,
-                         $relevance = null,
-                         $score = null)
+    public function __construct($monday, $tuesday, $wednesday, $thursday, $friday, $saturday, $sunday, $holiday)
     {
-        $this->type = $type;
-        $this->id = $id;
-        $this->name = $name;
-        $this->weight = $weight;
-        $this->relevance = $relevance;
-        $this->score = $score;
+        $this->monday = $monday;
+        $this->tuesday = $tuesday;
+        $this->wednesday = $wednesday;
+        $this->thursday = $thursday;
+        $this->friday = $friday;
+        $this->saturday = $saturday;
+        $this->sunday = $sunday;
+        $this->holiday = $holiday;
     }
+
 
 }

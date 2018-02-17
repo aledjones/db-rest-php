@@ -18,11 +18,76 @@
 
 namespace aledjones\db_rest_php;
 
-
-use aledjones\db_rest_php\DataTypes\Coordinates;
-
+/**
+ * Class StationDetails
+ * Extends structure of Station
+ * @package aledjones\db_rest_php
+ */
 class StationDetails extends Station
 {
+    /**
+     * @var array
+     *
+     * @var string
+     *
+     * @var integer
+     *
+     * @var \aledjones\db_rest_php\DataTypes\coordinates
+     *
+     * @var \aledjones\db_rest_php\DataTypes\operator
+     *
+     * @var \aledjones\db_rest_php\DataTypes\address
+     *
+     * @var integer
+     *
+     * @var integer
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var string
+     *
+     * @var string
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var boolean
+     *
+     * @var string
+     *
+     * @var \aledjones\db_rest_php\DataTypes\regionalbereich
+     *
+     * @var \aledjones\db_rest_php\DataTypes\availability\DBinformation
+     *
+     * @var \aledjones\db_rest_php\DataTypes\availability\localServiceStaff
+     *
+     * @var \aledjones\db_rest_php\DataTypes\timeTableOffice
+     *
+     * @var \aledjones\db_rest_php\DataTypes\szentrale
+     *
+     * @var \aledjones\db_rest_php\DataTypes\stationManagement
+     *
+     * @var array
+     */
     public $additionalIds,
         $ds100,
         $nr,
@@ -31,21 +96,21 @@ class StationDetails extends Station
         $address,
         $category,
         $priceCategory,
-        $hasParking,
-        $hasBicycleParking,
-        $hasLocalPublicTransport,
-        $hasPublicFacilities,
-        $hasLockerSystem,
-        $hasTaxiRank,
-        $hasTravelNecessities,
-        $hasSteplessAccess,
+        $hasParking = 0,
+        $hasBicycleParking = 0,
+        $hasLocalPublicTransport = 0,
+        $hasPublicFacilities = 0,
+        $hasLockerSystem = 0,
+        $hasTaxiRank = 0,
+        $hasTravelNecessities = 0,
+        $hasSteplessAccess = "no",
         $hasMobilityService,
-        $hasWiFi,
-        $hasTravelCenter,
-        $hasRailwayMission,
-        $hasDBLounge,
-        $hasLostAndFound,
-        $hasCarRental,
+        $hasWiFi = 0,
+        $hasTravelCenter = 0,
+        $hasRailwayMission = 0,
+        $hasDBLounge = 0,
+        $hasLostAndFound = 0,
+        $hasCarRental = 0,
         $federalState,
         $regionalbereich,
         $DBinformation,

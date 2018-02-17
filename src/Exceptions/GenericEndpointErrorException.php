@@ -20,10 +20,10 @@ namespace aledjones\db_rest_php\Exceptions;
 
 
 /**
- * Class StationQueryEmptyException
+ * Class GenericEndpointErrorException
  * @package aledjones\db_rest_php\Exceptions
  */
-class StationQueryEmptyException extends \Exception
+class GenericEndpointErrorException extends \Exception
 {
 
 }

@@ -16,17 +16,17 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace aledjones\db_rest_php;
+namespace aledjones\db_rest_php\DataTypes;
+
 
 /**
- * Class Station
- * Provides a simple structure of the Friendly Public Transit Format in PHP
- * @package aledjones\db_rest_php
+ * Class regionalbereich
+ * @package aledjones\db_rest_php\DataTypes
  */
-class Station
+class regionalbereich
 {
     /**
-     * @var string
+     * @var integer
      */
     /**
      * @var string
@@ -34,45 +34,20 @@ class Station
     /**
      * @var string
      */
-    /**
-     * @var null|double
-     */
-    /**
-     * @var null|double
-     */
-    /**
-     * @var null|double
-     */
-    public
-        $type = "station",
-        $id,
-        $name,
-        $weight,
-        $relevance,
-        $score;
+    public $number, $name, $shortName;
 
     /**
-     * Station constructor.
-     * @param $type
-     * @param $id
+     * regionalbereich constructor.
+     * @param $number
      * @param $name
-     * @param null $weight
-     * @param null $relevance
-     * @param null $score
+     * @param $shortName
      */
-    function __construct($type,
-                         $id,
-                         $name,
-                         $weight = null,
-                         $relevance = null,
-                         $score = null)
+    public function __construct($number, $name, $shortName)
     {
-        $this->type = $type;
-        $this->id = $id;
+        $this->number = $number;
         $this->name = $name;
-        $this->weight = $weight;
-        $this->relevance = $relevance;
-        $this->score = $score;
+        $this->shortName = $shortName;
     }
+
 
 }

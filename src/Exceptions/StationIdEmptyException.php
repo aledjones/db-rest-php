@@ -18,7 +18,10 @@
 
 namespace aledjones\db_rest_php\Exceptions;
 
-
+/**
+ * Class StationIdEmptyException
+ * @package aledjones\db_rest_php\Exceptions
+ */
 class StationIdEmptyException extends \Exception
 {
 

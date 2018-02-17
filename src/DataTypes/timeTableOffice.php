@@ -16,14 +16,14 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace aledjones\db_rest_php;
+namespace aledjones\db_rest_php\DataTypes;
+
 
 /**
- * Class Station
- * Provides a simple structure of the Friendly Public Transit Format in PHP
- * @package aledjones\db_rest_php
+ * Class timeTableOffice
+ * @package aledjones\db_rest_php\DataTypes
  */
-class Station
+class timeTableOffice
 {
     /**
      * @var string
@@ -31,48 +31,18 @@ class Station
     /**
      * @var string
      */
-    /**
-     * @var string
-     */
-    /**
-     * @var null|double
-     */
-    /**
-     * @var null|double
-     */
-    /**
-     * @var null|double
-     */
-    public
-        $type = "station",
-        $id,
-        $name,
-        $weight,
-        $relevance,
-        $score;
+    public $email, $name;
 
     /**
-     * Station constructor.
-     * @param $type
-     * @param $id
+     * timeTableOffice constructor.
+     * @param $email
      * @param $name
-     * @param null $weight
-     * @param null $relevance
-     * @param null $score
      */
-    function __construct($type,
-                         $id,
-                         $name,
-                         $weight = null,
-                         $relevance = null,
-                         $score = null)
+    public function __construct($email, $name)
     {
-        $this->type = $type;
-        $this->id = $id;
+        $this->email = $email;
         $this->name = $name;
-        $this->weight = $weight;
-        $this->relevance = $relevance;
-        $this->score = $score;
     }
+
 
 }

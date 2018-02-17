@@ -16,10 +16,10 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace aledjones\db_rest_php\DataTypes;
+namespace aledjones\db_rest_php\DataTypes\availability;
 
 
-class Coordinates
+class friday extends monday
 {
-    public $latitude, $longitude;
+
 }
