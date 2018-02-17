@@ -39,7 +39,7 @@ class ClientTest extends TestCase
     {
         $client = new db_rest_php\Client();
         try {
-            $result = $client->GetStationsByName('Berlin Hbf');
+            $result = $client->GetStationByName('Berlin Hbf');
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -54,7 +54,7 @@ class ClientTest extends TestCase
     {
         $client = new db_rest_php\Client();
         try {
-            $result = $client->GetStationDetailsByID('8002549');
+            $result = $client->GetStationDetailsById('8002549');
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -73,7 +73,7 @@ class ClientTest extends TestCase
     public function testFailGenericEndpointException()
     {
         $client = new db_rest_php\Client();
-        return $client->GetStationDetailsByID('999999')->name;
+        return $client->GetStationDetailsById('999999')->name;
     }
 
     /**
@@ -91,6 +91,6 @@ class ClientTest extends TestCase
     public function testFailStationIdEmptyException()
     {
         $client = new db_rest_php\Client();
-        return $client->GetStationDetailsByID('');
+        return $client->GetStationDetailsById('');
     }
 }
