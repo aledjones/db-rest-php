@@ -1,3 +1,6 @@
+[![Travis](https://img.shields.io/travis/aledjones/db-rest.svg?style=for-the-badge)](https://travis-ci.org/aledjones/db-rest-php)
+[![Packagist](https://img.shields.io/packagist/vpre/aledjones/db-rest-php.svg?style=for-the-badge)](https://packagist.org/packages/aledjones/db-rest-php)  
+
 db-rest-php
 -----------
 
@@ -51,7 +54,7 @@ Each ``station`` object provides all possible attributes, some of them are objec
 If an attribute is empty, the attribute does not apply to the requested station.  
 
 ---
-I'm am always open for suggestions. If you find errors or know how to tune a thing or two, please feel free to open an
+I'm am always open for suggestions. If you find errors or know how to tune a thing or two, feel free to open an
 issue on GitHub.  This is a pre-release/dev-release.
 
 This library will grow over time in functionality. Make sure you check back for updates every now and then.
