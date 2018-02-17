@@ -11,15 +11,20 @@
   ],
   "homepage": "https://github.com/aledjones/db-rest-php",
   "license": "MIT",
-  "authors": [{
-    "name": "Jonas Möller",
-    "email": "mail@jonasmoeller.de",
-    "homepage": "https://jonasmoeller.de",
-    "role": "Developer"
-  }],
+  "authors": [
+    {
+      "name": "Jonas Möller",
+      "email": "mail@jonasmoeller.de",
+      "homepage": "https://jonasmoeller.de",
+      "role": "Developer"
+    }
+  ],
   "require": {
-    "php":">=7.0",
+    "php": ">=7.0",
     "nategood/httpful": "0.2.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6"
   },
   "autoload": {
     "psr-4": {
