@@ -17,6 +17,7 @@
  */
 
 namespace aledjones\db_rest_php;
+
 /**
  * Class Client
  * Provides a simple interface for collecting data structured as Station objects
@@ -33,8 +34,8 @@ class Client
 
     /**
      * @param $query
-     * @return array of Station objects
-     * @throws StationQueryEmptyException
+     * @return array
+     * @throws Exceptions\StationQueryEmptyException
      * @throws \Httpful\Exception\ConnectionErrorException
      */
     public function GetStationsByQuery($query)
@@ -59,7 +60,7 @@ class Client
             }
             return $response;
         } else {
-            throw new StationQueryEmptyException('$query cannot be empty!');
+            throw new \aledjones\db_rest_php\Exceptions\StationQueryEmptyException('$query cannot be empty!');
         }
     }
 
@@ -68,7 +69,7 @@ class Client
      * $name needs to be the exact name of the station, preferably from db-stations-autocomplete, as the REST-endpoint
      * sends back an invalid json if multiple stations are applicable. (02/18)
      * @return StationDetails
-     * @throws StationQueryEmptyException
+     * @throws \aledjones\db_rest_php\Exceptions\StationQueryEmptyException
      * @throws \Httpful\Exception\ConnectionErrorException
      */
     public function GetStationsByName($name)
@@ -90,14 +91,14 @@ class Client
             return $response;
 
         } else {
-            throw new StationQueryEmptyException('$name cannot be empty!');
+            throw new \aledjones\db_rest_php\Exceptions\StationQueryEmptyException('$name cannot be empty!');
         }
     }
 
     /**
      * @param $id
      * @return StationDetails
-     * @throws StationIdEmptyException
+     * @throws \aledjones\db_rest_php\Exceptions\StationIdEmptyException
      * @throws \Httpful\Exception\ConnectionErrorException
      */
     public function GetStationDetailsByID($id)
@@ -117,7 +118,7 @@ class Client
             }
             return $response;
         } else {
-            throw new StationIdEmptyException('$id cannot be empty!');
+            throw new \aledjones\db_rest_php\Exceptions\StationIdEmptyException('$id cannot be empty!');
         }
     }
 }

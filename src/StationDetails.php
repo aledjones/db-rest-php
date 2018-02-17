@@ -19,6 +19,8 @@
 namespace aledjones\db_rest_php;
 
 
+use aledjones\db_rest_php\DataTypes\Coordinates;
+
 class StationDetails extends Station
 {
     public $additionalIds,
