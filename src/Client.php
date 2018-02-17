@@ -64,6 +64,37 @@ class Client
     }
 
     /**
+     * @param $name string
+     * $name needs to be the exact name of the station, preferably from db-stations-autocomplete, as the REST-endpoint
+     * sends back an invalid json if multiple stations are applicable. (02/18)
+     * @return StationDetails
+     * @throws StationQueryEmptyException
+     * @throws \Httpful\Exception\ConnectionErrorException
+     */
+    public function GetStationsByName($name)
+    {
+        $s = $this->base_url . 'stations?name=';
+        if (!empty($name)) {
+            $s .= urlencode($name);
+
+            $c = \Httpful\Request::get($s)
+                ->expects('application/json')
+                ->send();
+            $item = $c->body;
+
+            $response = new StationDetails($item->type, $item->id, $item->name, $item->weight);
+            foreach ($item as $key => $value) {
+                $response->{$key} = $value;
+            }
+
+            return $response;
+
+        } else {
+            throw new StationQueryEmptyException('$name cannot be empty!');
+        }
+    }
+
+    /**
      * @param $id
      * @return StationDetails
      * @throws StationIdEmptyException
@@ -81,38 +112,10 @@ class Client
             $item = $c->body;
 
             $response = new StationDetails($item->type, $item->id, $item->name, $item->weight);
-            $response->additionalIds = $item->additionalIds;
-            $response->ds100 = $item->ds100;
-            $response->nr = $item->nr;
-            $response->coordinates = $item->coordinates;
-            $response->operator = $item->operator;
-            $response->address = $item->address;
-            $response->category = $item->category;
-            $response->priceCategory = $item->priceCategory;
-            $response->hasParking = $item->hasParking;
-            $response->hasBicycleParking = $item->hasBicycleParking;
-            $response->hasLocalPublicTransport = $item->hasLocalPublicTransport;
-            $response->hasPublicFacilities = $item->hasPublicFacilities;
-            $response->hasLockerSystem = $item->hasLockerSystem;
-            $response->hasTaxiRank = $item->hasTaxiRank;
-            $response->hasTravelNecessities = $item->hasTravelNecessities;
-            $response->hasSteplessAccess = $item->hasSteplessAccess;
-            $response->hasMobilityService = $item->hasMobilityService;
-            $response->hasWiFi = $item->hasWiFi;
-            $response->hasTravelCenter = $item->hasTravelCenter;
-            $response->hasRailwayMission = $item->hasRailwayMission;
-            $response->hasDBLounge = $item->hasDBLounge;
-            $response->hasLostAndFound = $item->hasLostAndFound;
-            $response->hasCarRental = $item->hasCarRental;
-            $response->federalState = $item->federalState;
-            $response->regionalbereich = $item->regionalbereich;
-            $response->DBinformation = $item->DBinformation;
-            $response->localServiceStaff = $item->localServiceStaff;
-            $response->timeTableOffice = $item->timeTableOffice;
-            $response->szentrale = $item->szentrale;
-            $response->stationManagement = $item->stationManagement;
-            $response->ril100Identifiers = $item->ril100Identifiers;
-
+            foreach ($item as $key => $value) {
+                $response->{$key} = $value;
+            }
+            return $response;
         } else {
             throw new StationIdEmptyException('$id cannot be empty!');
         }
