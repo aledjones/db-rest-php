@@ -19,7 +19,35 @@
 namespace aledjones\db_rest_php;
 
 
-class Departures
+/**
+ * Class StationDeparture
+ * @package aledjones\db_rest_php
+ */
+class StationDeparture extends Station
 {
+    /**
+     * @var object
+     *
+     * @var object
+     *
+     * @var array
+     */
+    public $location, $products, $lines;
+
+    /**
+     * StationDeparture constructor.
+     * @param object $location
+     * @param object $products
+     * @param array $lines
+     */
+    public function __construct($type, $id, $name, $location, $products, $lines)
+    {
+        parent::__construct($type, $id, $name);
+
+        $this->location = $location;
+        $this->products = $products;
+        $this->lines = $lines;
+    }
+
 
 }

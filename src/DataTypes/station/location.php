@@ -16,54 +16,36 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace aledjones\db_rest_php;
+namespace aledjones\db_rest_php\DataTypes\station;
 
 
 /**
- * Class Departure
- * @package aledjones\db_rest_php
+ * Class location
+ * @package aledjones\db_rest_php\DataTypes\station
  */
-class Departure
+class location
 {
     /**
      * @var string
      *
-     * @var object
+     * @var double
      *
-     * @var string
-     *
-     * @var string
-     *
-     * @var object
-     *
-     * @var array
-     *
-     * @var int
-     *
-     * @var mixed|null
+     * @var double
      */
-    public $journeyId, $station, $when, $direction, $line, $remarks = [], $trip, $delay = null;
+    public $type, $latitude, $longitude;
 
     /**
-     * Departure constructor.
-     * @param string $journeyId
-     * @param object $station
-     * @param string|integer $when
-     * @param string $direction
-     * @param object $line
-     * @param array $remarks
-     * @param int $trip
-     * @param mixed|null $delay
+     * location constructor.
+     * @param string $type
+     * @param double $latitude
+     * @param double $longitude
      */
-    public function __construct($journeyId, $station, $when, $direction, $line, array $remarks, $trip, $delay)
+    public function __construct($type, $latitude, $longitude)
     {
-        $this->journeyId = $journeyId;
-        $this->station = $station;
-        $this->when = $when;
-        $this->direction = $direction;
-        $this->line = $line;
-        $this->remarks = $remarks;
-        $this->trip = $trip;
-        $this->delay = $delay;
+        $this->type = $type;
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
     }
+
+
 }

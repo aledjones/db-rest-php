@@ -18,6 +18,7 @@
 
 namespace aledjones\db_rest_php;
 
+use aledjones\db_rest_php\Exceptions\GenericEndpointEmptyResponseException;
 use Httpful\Request;
 
 /**
@@ -44,28 +45,30 @@ class Client
     /**
      * Returns array of Stations which match the given query
      * @param $query string
+     * @param bool|null $completion
+     * @param bool|null $fuzzy
      * @return array
-     * @throws Exceptions\GenericEndpointErrorException
+     * @throws Exceptions\GenericEndpointEmptyResponseException
      * @throws Exceptions\StationQueryEmptyException
      * @throws \Httpful\Exception\ConnectionErrorException
      */
-    public function GetStationsByQuery($query)
+    public function GetStationsByQuery(string $query, bool $completion = null, bool $fuzzy = null)
     {
         $s = $this->base_url . 'stations?query=';
         if (!empty($query)) {
-            $s .= urlencode($query);
+            $s .= urlencode($query) . "&completion=" . ($completion ? 'true' : 'false') . "&fuzzy=" . ($fuzzy ? 'true' : 'false');
 
             $c = Request::get($s)
                 ->expects('application/json')
                 ->send();
             if (empty($c->body)) {
-                throw new Exceptions\GenericEndpointErrorException('No stations found!');
+                throw new Exceptions\GenericEndpointEmptyResponseException('Response is empty.');
             }
 
-            $response = array();
+            $return = array();
 
             foreach ($c->body as $item) {
-                array_push($response,
+                array_push($return,
                     new Station($item->type,
                         $item->id,
                         $item->name,
@@ -73,7 +76,7 @@ class Client
                         $item->relevance,
                         $item->score));
             }
-            return $response;
+            return $return;
         } else {
             throw new Exceptions\StationQueryEmptyException('$query cannot be empty!');
         }
@@ -88,6 +91,7 @@ class Client
      * @throws \aledjones\db_rest_php\Exceptions\GenericEndpointErrorException
      * @throws \aledjones\db_rest_php\Exceptions\StationQueryEmptyException
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \aledjones\db_rest_php\Exceptions\GenericEndpointEmptyResponseException
      */
     public function GetStationDetailsByName($name)
     {
@@ -101,17 +105,19 @@ class Client
             $item = $c->body;
             if (isset($item->error)) {
                 throw new Exceptions\GenericEndpointErrorException($item->msg);
+            } elseif (empty($item)) {
+                throw new Exceptions\GenericEndpointEmptyResponseException('Response is empty.');
             }
 
-            $response = new StationDetails($item->type, $item->id, $item->name, $item->weight);
+            $return = new StationDetails($item->type, $item->id, $item->name, $item->weight);
             foreach ($item as $key => $value) {
-                $response->{$key} = $this->switchKey($key, $value);
+                $return->{$key} = $this->switchKey($key, $value);
             }
 
-            return $response;
+            return $return;
 
         } else {
-            throw new \aledjones\db_rest_php\Exceptions\StationQueryEmptyException('$name cannot be empty!');
+            throw new Exceptions\StationQueryEmptyException('$name cannot be empty!');
         }
     }
 
@@ -206,11 +212,12 @@ class Client
 
     /**
      * Returns a StationDetails object containing all information about the given station id.
-     * @param $id
+     * @param $id string | int
      * @return StationDetails
      * @throws Exceptions\GenericEndpointErrorException
      * @throws Exceptions\StationIdEmptyException
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws GenericEndpointEmptyResponseException
      */
     public function GetStationDetailsById($id)
     {
@@ -223,16 +230,58 @@ class Client
                 ->send();
             $item = $c->body;
             if (isset($item->error)) {
-                throw new \aledjones\db_rest_php\Exceptions\GenericEndpointErrorException($item->msg);
+                throw new Exceptions\GenericEndpointErrorException($item->msg);
+            } elseif (empty($item)) {
+                throw new GenericEndpointEmptyResponseException('Response is empty.');
             }
 
-            $response = new StationDetails($item->type, $item->id, $item->name, $item->weight);
+            $return = new StationDetails($item->type, $item->id, $item->name, $item->weight);
             foreach ($item as $key => $value) {
-                $response->{$key} = $this->switchKey($key, $value);
+                $return->{$key} = $this->switchKey($key, $value);
             }
-            return $response;
+            return $return;
         } else {
-            throw new \aledjones\db_rest_php\Exceptions\StationIdEmptyException('$id cannot be empty!');
+            throw new Exceptions\StationIdEmptyException('$id cannot be empty.');
+        }
+    }
+
+    /**
+     * @param $id
+     * @param string $when
+     * @param int $duration
+     * @return array
+     * @throws Exceptions\GenericEndpointErrorException
+     * @throws Exceptions\StationIdEmptyException
+     * @throws GenericEndpointEmptyResponseException
+     * @throws \Httpful\Exception\ConnectionErrorException
+     */
+    public function GetDepartureBoard($id, $when = 'now', $duration = 10)
+    {
+        $s = $this->base_url . 'stations/';
+        if (!empty($id)) {
+            $s .= $id . '/departures?when=' . urlencode($when) . '&duration=' . urlencode($duration);
+
+            $c = Request::get($s)
+                ->expects('application/json')
+                ->send();
+            $item = $c->body;
+            if (isset($item->error)) {
+                throw new Exceptions\GenericEndpointErrorException($item->msg);
+            } elseif (empty($item)) {
+                throw new GenericEndpointEmptyResponseException('Response is empty.');
+            }
+
+            $return = array();
+            foreach ($item as $current) {
+                $departure = new Departure($current->journeyId, $current->station,
+                    strtotime($current->when),
+                    $current->direction, $current->line, $current->remarks, $current->trip, $current->delay);
+                array_push($return, $departure);
+            }
+
+            return $return;
+        } else {
+            throw new Exceptions\StationIdEmptyException('$id cannot be empty.');
         }
     }
 }

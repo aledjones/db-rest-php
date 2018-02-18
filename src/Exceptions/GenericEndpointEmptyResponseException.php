@@ -16,54 +16,14 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace aledjones\db_rest_php;
+namespace aledjones\db_rest_php\Exceptions;
 
 
 /**
- * Class Departure
- * @package aledjones\db_rest_php
+ * Class GenericEndpointEmptyResponseException
+ * @package aledjones\db_rest_php\Exceptions
  */
-class Departure
+class GenericEndpointEmptyResponseException extends \Exception
 {
-    /**
-     * @var string
-     *
-     * @var object
-     *
-     * @var string
-     *
-     * @var string
-     *
-     * @var object
-     *
-     * @var array
-     *
-     * @var int
-     *
-     * @var mixed|null
-     */
-    public $journeyId, $station, $when, $direction, $line, $remarks = [], $trip, $delay = null;
 
-    /**
-     * Departure constructor.
-     * @param string $journeyId
-     * @param object $station
-     * @param string|integer $when
-     * @param string $direction
-     * @param object $line
-     * @param array $remarks
-     * @param int $trip
-     * @param mixed|null $delay
-     */
-    public function __construct($journeyId, $station, $when, $direction, $line, array $remarks, $trip, $delay)
-    {
-        $this->journeyId = $journeyId;
-        $this->station = $station;
-        $this->when = $when;
-        $this->direction = $direction;
-        $this->line = $line;
-        $this->remarks = $remarks;
-        $this->trip = $trip;
-        $this->delay = $delay;
-    }
 }
