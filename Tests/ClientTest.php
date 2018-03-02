@@ -22,11 +22,11 @@ use PHPUnit\Framework\TestCase;
 class ClientTest extends TestCase
 {
 
-    private $custom_base = 'https://db-rest.jonasmoeller.consulting';
+    private $custom_base = 'https://db-rest.jonasmoeller.consulting/';
 
     public function testGetStationsByQuery()
     {
-        $client = new db_rest_php\Client();
+        $client = new db_rest_php\Client($this->custom_base);
         try {
             $results = $client->GetStationsByQuery('Kaiserslautern');
         } catch (Exception $e) {
@@ -39,7 +39,7 @@ class ClientTest extends TestCase
 
     public function testGetStationsByName()
     {
-        $client = new db_rest_php\Client();
+        $client = new db_rest_php\Client($this->custom_base);
         try {
             $result = $client->GetStationDetailsByName('Berlin Hbf');
         } catch (Exception $e) {
@@ -54,7 +54,7 @@ class ClientTest extends TestCase
 
     public function testGetStationDetailsByID()
     {
-        $client = new db_rest_php\Client();
+        $client = new db_rest_php\Client($this->custom_base);
         try {
             $result = $client->GetStationDetailsById('8002549');
         } catch (Exception $e) {
@@ -74,7 +74,7 @@ class ClientTest extends TestCase
      */
     public function testFailGenericEndpointException()
     {
-        $client = new db_rest_php\Client();
+        $client = new db_rest_php\Client($this->custom_base);
         return $client->GetStationDetailsById('999999')->name;
     }
 
@@ -83,7 +83,7 @@ class ClientTest extends TestCase
      */
     public function testFailStationQueryEmptyException()
     {
-        $client = new db_rest_php\Client();
+        $client = new db_rest_php\Client($this->custom_base);
         return $client->GetStationsByQuery("");
     }
 
@@ -92,7 +92,7 @@ class ClientTest extends TestCase
      */
     public function testFailStationIdEmptyException()
     {
-        $client = new db_rest_php\Client();
+        $client = new db_rest_php\Client($this->custom_base);
         return $client->GetStationDetailsById('');
     }
 }
