@@ -19,6 +19,7 @@
 namespace aledjones\db_rest_php;
 
 use aledjones\db_rest_php\Exceptions\GenericEndpointEmptyResponseException;
+use GuzzleHttp;
 use Httpful\Request;
 
 /**
@@ -32,6 +33,10 @@ class Client
      * @var string
      */
     private $base_url;
+    /**
+     * @var object
+     */
+    private $c;
 
     /**
      * Client constructor.
@@ -40,6 +45,9 @@ class Client
     function __construct($base_url = "https://1.db.transport.rest/")
     {
         $this->base_url = $base_url;
+        $this->c = new GuzzleHttp\Client([
+            'base_uri' => $this->base_url
+        ]);
     }
 
     /**
@@ -259,12 +267,14 @@ class Client
     {
         $s = $this->base_url . 'stations/';
         if (!empty($id)) {
-            $s .= $id . '/departures?when=' . urlencode($when) . '&duration=' . urlencode($duration);
+            //$s .= $id . '/departures?when=' . urlencode($when) . '&duration=' . urlencode($duration);
 
-            $c = Request::get($s)
+            /*$c = Request::get($s)
                 ->expects('application/json')
-                ->send();
-            $item = $c->body;
+                ->send();*/
+            $r = $this->c->request('GET', 'stations/' . $id . '/departures', [
+                'query' => ['when' => urlencode($when), 'duration' => urlencode($duration)]]);
+            $item = json_decode($r->getBody());
             if (isset($item->error)) {
                 throw new Exceptions\GenericEndpointErrorException($item->msg);
             } elseif (empty($item)) {
