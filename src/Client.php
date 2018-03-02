@@ -126,13 +126,13 @@ class Client
      * Returns the given key/value pair by default.
      * @param $key string
      * @param $value mixed
-     * @return DataTypes\address|DataTypes\coordinates|DataTypes\operator|DataTypes\regionalbereich|DataTypes\stationManagement|DataTypes\szentrale|DataTypes\timeTableOffice|DataTypes\availability\DBinformation|DataTypes\availability\localServiceStaff
+     * @return DataTypes\address|DataTypes\location|DataTypes\operator|DataTypes\regionalbereich|DataTypes\stationManagement|DataTypes\szentrale|DataTypes\timeTableOffice|DataTypes\availability\DBinformation|DataTypes\availability\localServiceStaff
      */
     private function switchKey($key, $value)
     {
         switch ($key) {
             case "coordinates":
-                return new DataTypes\coordinates($value->latitude, $value->longitude);
+                return new DataTypes\location($value->latitude, $value->longitude);
                 break;
 
             case "operator":

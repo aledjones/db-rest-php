@@ -32,7 +32,7 @@ class StationDetails extends Station
      *
      * @var integer
      *
-     * @var \aledjones\db_rest_php\DataTypes\coordinates
+     * @var \aledjones\db_rest_php\DataTypes\location
      *
      * @var \aledjones\db_rest_php\DataTypes\operator
      *
@@ -91,7 +91,7 @@ class StationDetails extends Station
     public $additionalIds,
         $ds100,
         $nr,
-        $coordinates,
+        $location,
         $operator,
         $address,
         $category,

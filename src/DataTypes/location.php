@@ -18,28 +18,32 @@
 
 namespace aledjones\db_rest_php\DataTypes;
 
-
 /**
- * Class coordinates
+ * Class location
  * @package aledjones\db_rest_php\DataTypes
  */
-class coordinates
+class location
 {
     /**
-     * @var double
+     * @var string
      */
     /**
-     * @var double
+     * @var float
      */
-    public $latitude, $longitude;
+    /**
+     * @var float
+     */
+    public $type, $latitude, $longitude;
 
     /**
-     * Coordinates constructor.
-     * @param $latitude
-     * @param $longitude
+     * location constructor.
+     * @param string $type
+     * @param float $latitude
+     * @param float $longitude
      */
-    public function __construct($latitude, $longitude)
+    public function __construct(string $type, float $latitude, float $longitude)
     {
+        $this->type = $type;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
     }

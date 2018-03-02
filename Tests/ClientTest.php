@@ -22,6 +22,8 @@ use PHPUnit\Framework\TestCase;
 class ClientTest extends TestCase
 {
 
+    private $custom_base = 'https://db-rest.jonasmoeller.consulting';
+
     public function testGetStationsByQuery()
     {
         $client = new db_rest_php\Client();
@@ -44,7 +46,7 @@ class ClientTest extends TestCase
             return $e->getMessage();
         }
 
-        $this->assertEquals(52.525592, $result->coordinates->latitude);
+        $this->assertEquals(52.525592, $result->location->latitude);
         $this->assertEquals('Berlin', $result->federalState);
         $this->assertNotEquals('Berlin Hbf', $result->szentrale->name);
         $this->assertArrayHasKey(1, $result->ril100Identifiers);
@@ -59,7 +61,7 @@ class ClientTest extends TestCase
             return $e->getMessage();
         }
 
-        $this->assertEquals(10.006909, $result->coordinates->longitude);
+        $this->assertEquals(10.006909, $result->location->longitude);
         $this->assertEquals('Hamburg', $result->federalState);
         $this->assertNotEquals('Berlin Hbf', $result->szentrale->name);
         $this->assertArrayHasKey(1, $result->ril100Identifiers);
