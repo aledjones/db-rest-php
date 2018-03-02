@@ -1,4 +1,4 @@
-[![Travis](https://img.shields.io/travis/aledjones/db-rest.svg?style=for-the-badge)](https://travis-ci.org/aledjones/db-rest-php)
+[![Travis](https://img.shields.io/travis/aledjones/db-rest-php.svg?style=for-the-badge)](https://travis-ci.org/aledjones/db-rest-php)
 [![Packagist](https://img.shields.io/packagist/vpre/aledjones/db-rest-php.svg?style=for-the-badge)](https://packagist.org/packages/aledjones/db-rest-php)  
 
 db-rest-php
