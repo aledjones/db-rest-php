@@ -132,7 +132,7 @@ class Client
     {
         switch ($key) {
             case "coordinates":
-                return new DataTypes\location($value->latitude, $value->longitude);
+                return new DataTypes\location($value->type, $value->latitude, $value->longitude);
                 break;
 
             case "operator":
@@ -273,10 +273,12 @@ class Client
 
             $return = array();
             foreach ($item as $current) {
-                $departure = new Departure($current->journeyId, $current->station,
-                    strtotime($current->when),
-                    $current->direction, $current->line, $current->remarks, $current->trip, $current->delay);
-                array_push($return, $departure);
+                if (!is_null($current->when)) {
+                    $departure = new Departure($current->journeyId, $current->station,
+                        strtotime($current->when),
+                        $current->direction, $current->line, $current->remarks, $current->trip, $current->delay);
+                    array_push($return, $departure);
+                }
             }
 
             return $return;
