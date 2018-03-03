@@ -68,56 +68,15 @@ class Client
             $return = array();
 
             foreach ($c->body as $item) {
-                array_push($return,
-                    new Station($item->type,
-                        $item->id,
-                        $item->name,
-                        $item->weight,
-                        $item->relevance,
-                        $item->score));
+                $r = new StationDetails($item->type, $item->id, $item->name, $item->weight);
+                foreach ($item as $key => $value) {
+                    $r->{$key} = $this->switchKey($key, $value);
+                }
+                array_push($return, $r);
             }
             return $return;
         } else {
             throw new Exceptions\StationQueryEmptyException('$query cannot be empty!');
-        }
-    }
-
-    /**
-     * Returns a StationDetails object containing all information about the given station name.
-     * @param $name string
-     * $name needs to be the exact name of the station, preferably from db-stations-autocomplete, as the REST-endpoint
-     * sends back an invalid json if multiple stations are applicable. (02/18)
-     * @return StationDetails
-     * @throws \aledjones\db_rest_php\Exceptions\GenericEndpointErrorException
-     * @throws \aledjones\db_rest_php\Exceptions\StationQueryEmptyException
-     * @throws \Httpful\Exception\ConnectionErrorException
-     * @throws \aledjones\db_rest_php\Exceptions\GenericEndpointEmptyResponseException
-     */
-    public function GetStationDetailsByName($name)
-    {
-        $s = $this->base_url . 'stations?name=';
-        if (!empty($name)) {
-            $s .= urlencode($name);
-
-            $c = Request::get($s)
-                ->expects('application/json')
-                ->send();
-            $item = $c->body;
-            if (isset($item->error)) {
-                throw new Exceptions\GenericEndpointErrorException($item->msg);
-            } elseif (empty($item)) {
-                throw new Exceptions\GenericEndpointEmptyResponseException('Response is empty.');
-            }
-
-            $return = new StationDetails($item->type, $item->id, $item->name, $item->weight);
-            foreach ($item as $key => $value) {
-                $return->{$key} = $this->switchKey($key, $value);
-            }
-
-            return $return;
-
-        } else {
-            throw new Exceptions\StationQueryEmptyException('$name cannot be empty!');
         }
     }
 
@@ -207,6 +166,45 @@ class Client
 
             default:
                 return $value;
+        }
+    }
+
+    /**
+     * Returns a StationDetails object containing all information about the given station name.
+     * @param $name string
+     * $name needs to be the exact name of the station, preferably from db-stations-autocomplete, as the REST-endpoint
+     * sends back an invalid json if multiple stations are applicable. (02/18)
+     * @return StationDetails
+     * @throws \aledjones\db_rest_php\Exceptions\GenericEndpointErrorException
+     * @throws \aledjones\db_rest_php\Exceptions\StationQueryEmptyException
+     * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \aledjones\db_rest_php\Exceptions\GenericEndpointEmptyResponseException
+     */
+    public function GetStationDetailsByName($name)
+    {
+        $s = $this->base_url . 'stations?name=';
+        if (!empty($name)) {
+            $s .= urlencode($name);
+
+            $c = Request::get($s)
+                ->expects('application/json')
+                ->send();
+            $item = $c->body;
+            if (isset($item->error)) {
+                throw new Exceptions\GenericEndpointErrorException($item->msg);
+            } elseif (empty($item)) {
+                throw new Exceptions\GenericEndpointEmptyResponseException('Response is empty.');
+            }
+
+            $return = new StationDetails($item->type, $item->id, $item->name, $item->weight);
+            foreach ($item as $key => $value) {
+                $return->{$key} = $this->switchKey($key, $value);
+            }
+
+            return $return;
+
+        } else {
+            throw new Exceptions\StationQueryEmptyException('$name cannot be empty!');
         }
     }
 
