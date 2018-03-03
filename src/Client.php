@@ -52,11 +52,11 @@ class Client
      * @throws Exceptions\StationQueryEmptyException
      * @throws \Httpful\Exception\ConnectionErrorException
      */
-    public function GetStationsByQuery(string $query, bool $completion = null, bool $fuzzy = null)
+    public function GetStationsByQuery(string $query, $results = 3, bool $completion = null, bool $fuzzy = null)
     {
         $s = $this->base_url . 'stations?query=';
         if (!empty($query)) {
-            $s .= urlencode($query) . "&completion=" . ($completion ? 'true' : 'false') . "&fuzzy=" . ($fuzzy ? 'true' : 'false');
+            $s .= urlencode($query) . "&completion=" . ($completion ? 'true' : 'false') . "&fuzzy=" . ($fuzzy ? 'true' : 'false' . '&results=' . $results);
 
             $c = Request::get($s)
                 ->expects('application/json')
