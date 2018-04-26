@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class ClientTest extends TestCase
 {
 
-    private $custom_base = 'https://railapi.xyz/';
+    private $custom_base = 'https://1.db.transport.rest/';
 
     public function testGetStationsByQuery()
     {
