@@ -19,6 +19,11 @@
 namespace aledjones\db_rest_php;
 
 use aledjones\db_rest_php\Exceptions\GenericEndpointEmptyResponseException;
+use aledjones\db_rest_php\Exceptions\LocationsQueryEmptyException;
+use aledjones\db_rest_php\location\geo_location;
+use aledjones\db_rest_php\location\line;
+use aledjones\db_rest_php\location\location;
+use aledjones\db_rest_php\location\products;
 use Httpful\Request;
 
 /**
@@ -282,6 +287,66 @@ class Client
             return $return;
         } else {
             throw new Exceptions\StationIdEmptyException('$id cannot be empty.');
+        }
+    }
+
+    public function locations(string $query, int $results = 10, bool $stations = true, bool $poi = true, bool $addresses = true)
+    {
+        if (!empty($query)) {
+            $c = Request::get($this->base_url . 'locations?query=' . urlencode($query) .
+                '&results=' . urlencode($results) . '&stations=' . urlencode($stations) . '&poi=' . urlencode($poi) .
+                '&addresses=' . urlencode($addresses))
+                ->expects('application/json')
+                ->send();
+
+            $item = $c->body;
+
+            if (isset($item->error)) {
+                throw new Exceptions\GenericEndpointErrorException($item->msg);
+                return;
+            } elseif (empty($item)) {
+                throw new GenericEndpointEmptyResponseException('Response is empty.');
+                return;
+            }
+
+            $return = [];
+            foreach ($item as $current) {
+                $lines = [];
+                foreach ($current->lines as $tmp) {
+                    try {
+                        $line = new line($tmp->type,
+                            $tmp->id,
+                            $tmp->name,
+                            $tmp->public,
+                            $tmp->class,
+                            $tmp->product,
+                            $tmp->mode);
+                        array_push($lines, $line);
+                    } catch (\Exception $e) {
+                    }
+                }
+                $location = new location($current->type, $current->id, $current->name,
+                    new geo_location($current->location->type,
+                        $current->location->latitude,
+                        $current->location->longitude),
+                    new products($current->products->suburban,
+                        $current->products->subway,
+                        $current->products->tram,
+                        $current->products->bus,
+                        $current->products->ferry,
+                        $current->products->national,
+                        $current->products->nationalExp,
+                        $current->products->regional,
+                        $current->products->regionalExp,
+                        $current->products->taxi),
+                    $lines);
+                array_push($return, $location);
+            }
+
+            return $return;
+
+        } else {
+            throw new LocationsQueryEmptyException("query cannot be empty");
         }
     }
 }
