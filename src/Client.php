@@ -290,6 +290,18 @@ class Client
         }
     }
 
+    /**
+     * @param string $query
+     * @param int $results
+     * @param bool $stations
+     * @param bool $poi
+     * @param bool $addresses
+     * @return array|void
+     * @throws Exceptions\GenericEndpointErrorException
+     * @throws GenericEndpointEmptyResponseException
+     * @throws LocationsQueryEmptyException
+     * @throws \Httpful\Exception\ConnectionErrorException
+     */
     public function locations(string $query, int $results = 10, bool $stations = true, bool $poi = true, bool $addresses = true)
     {
         if (!empty($query)) {
