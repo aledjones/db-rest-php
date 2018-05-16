@@ -20,7 +20,7 @@ The easiest way to install this package is via [Composer](http://getcomposer.org
 ```json
 {
   "require": {
-      "aledjones/db-rest-php": "*"
+      "aledjones/db-rest-php": "^0.2"
     }
 }
 ```
