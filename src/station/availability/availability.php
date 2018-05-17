@@ -16,38 +16,34 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace aledjones\db_rest_php\location;
+namespace aledjones\db_rest_php\station\availability;
 
 
-/**
- * Class geo_location
- * Represents a geographical point/location
- * @package aledjones\db_rest_php\location
- */
-class geo_location
+class availability
 {
-    /**
-     * @var string
-     */
-    /**
-     * @var float
-     */
-    /**
-     * @var float
-     */
-    public $type, $latitude, $longitude;
+    public $monday, $tuesday, $wednesday, $thursday, $friday, $saturday, $sunday, $holiday;
 
     /**
-     * geo_location constructor.
-     * @param string $type
-     * @param float $latitude
-     * @param float $longitude
+     * availability constructor.
+     * @param $monday
+     * @param $tuesday
+     * @param $wednesday
+     * @param $thursday
+     * @param $friday
+     * @param $saturday
+     * @param $sunday
+     * @param $holiday
      */
-    public function __construct(string $type, float $latitude, float $longitude)
+    public function __construct($monday, $tuesday, $wednesday, $thursday, $friday, $saturday, $sunday, $holiday)
     {
-        $this->type = $type;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
+        $this->monday = $monday;
+        $this->tuesday = $tuesday;
+        $this->wednesday = $wednesday;
+        $this->thursday = $thursday;
+        $this->friday = $friday;
+        $this->saturday = $saturday;
+        $this->sunday = $sunday;
+        $this->holiday = $holiday;
     }
 
 

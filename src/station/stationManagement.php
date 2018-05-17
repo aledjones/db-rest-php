@@ -16,38 +16,32 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace aledjones\db_rest_php\location;
+namespace aledjones\db_rest_php\station;
 
 
 /**
- * Class geo_location
- * Represents a geographical point/location
- * @package aledjones\db_rest_php\location
+ * Class stationManagement
+ * @package aledjones\db_rest_php\DataTypes
  */
-class geo_location
+class stationManagement
 {
+    /**
+     * @var integer
+     */
     /**
      * @var string
      */
-    /**
-     * @var float
-     */
-    /**
-     * @var float
-     */
-    public $type, $latitude, $longitude;
+    public $number, $name;
 
     /**
-     * geo_location constructor.
-     * @param string $type
-     * @param float $latitude
-     * @param float $longitude
+     * stationManagement constructor.
+     * @param $number
+     * @param $name
      */
-    public function __construct(string $type, float $latitude, float $longitude)
+    public function __construct($number, $name)
     {
-        $this->type = $type;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
+        $this->number = $number;
+        $this->name = $name;
     }
 
 
